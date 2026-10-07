@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="description" content="PinkCalc — a smart, simple and beautiful calculator with scientific mode, history and dark mode." />
+    <meta name="theme-color" content="#fff1f7" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>PinkCalc</title>
+    <script>
+      // Apply the saved (or system) theme before first paint to avoid a flash.
+      (function () {
+        var theme = null;
+        try {
+          var saved = JSON.parse(localStorage.getItem('pinkcalc:theme'));
+          if (saved === 'light' || saved === 'dark') theme = saved;
+        } catch (e) {}
+        if (!theme) {
+          theme = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        }
+        document.documentElement.classList.toggle('dark', theme === 'dark');
+        document.documentElement.style.colorScheme = theme;
+      })();
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
